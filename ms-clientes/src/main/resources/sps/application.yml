@@ -1,0 +1,21 @@
+#spring:
+#  application:
+#    name: ms-negocio-gestion-productos
+
+#"  config:
+#    import: optional:configserver:http://localhost:8888
+
+server:
+  port: 8081
+
+# Database
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:4306/BD_VENTAS?serverTimezone=UTC&createDatabaseIfNotExist=true
+    username: root
+    password: 123456

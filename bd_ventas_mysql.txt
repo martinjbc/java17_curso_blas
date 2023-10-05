@@ -1,0 +1,93 @@
+-- Crear la base de datos "bd_ventas" en MySQL
+CREATE DATABASE bd_ventas;
+USE bd_ventas;
+
+-- Crear la tabla "clientes" en MySQL
+CREATE TABLE clientes (
+    cliente_id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100),
+    direccion VARCHAR(200),
+    celular VARCHAR(9),
+    fecha_nacimiento DATE,
+    sexo VARCHAR(10)
+);
+
+-- Insertar datos iniciales en la tabla "clientes"
+INSERT INTO clientes (nombre, direccion, celular, fecha_nacimiento, sexo)
+VALUES
+    ('Juan Pérez', 'Calle 123', '987654321', '1985-05-15', 'Masculino'),
+    ('María González', 'Avenida 456', '912345678', '1990-08-22', 'Femenino'),
+    ('Carlos Rodríguez', 'Carrera 789', '934567890', '1982-03-10', 'Masculino'),
+    ('Ana Martínez', 'Calle Principal', '956789012', '1995-12-05', 'Femenino'),
+    ('Pedro Sánchez', 'Avenida Central', '999888777', '1988-09-18', 'Masculino'),
+    ('Laura Jiménez', 'Calle Secundaria', '912345678', '1993-07-30', 'Femenino'),
+    ('Sergio Torres', 'Calle 456', '945678901', '1980-02-11', 'Masculino'),
+    ('Elena Vargas', 'Avenida 789', '978765432', '1991-11-25', 'Femenino'),
+    ('Javier López', 'Carrera 123', '966666666', '1987-04-02', 'Masculino'),
+    ('Isabel Ramírez', 'Calle 999', '977777777', '1996-06-14', 'Femenino');
+
+-- Crear la tabla "producto" en MySQL
+CREATE TABLE producto (
+    producto_id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100),
+    precio DECIMAL(10, 2)
+);
+
+-- Insertar datos iniciales en la tabla "producto"
+INSERT INTO producto (nombre, precio, stock_maximo, stock_minimo)
+VALUES
+       ('Laptop Lenovo', 799.99, 11, 61),
+    ('Smartphone Samsung', 349.50, 12, 62),
+    ('Impresora HP', 149.99, 13, 63),
+    ('Tablet Android', 199.99, 14, 64),
+    ('Teclado inalámbrico', 39.99, 15, 65),
+    ('Mouse óptico', 19.99, 16, 66),
+    ('Monitor LED', 249.99, 17, 67),
+    ('Auriculares Bluetooth', 59.99, 18, 68),
+    ('Altavoz portátil', 79.99, 19, 69),
+    ('Cámara digital', 299.99, 20, 70);
+
+-- Crear la tabla "factura" en MySQL con la columna "vendedor_id"
+CREATE TABLE factura (
+    factura_id INT AUTO_INCREMENT PRIMARY KEY,
+    cliente_id INT,
+    vendedor_id INT, -- Agregar columna para el vendedor
+    fecha DATE,
+    total DECIMAL(10, 2),
+    FOREIGN KEY (cliente_id) REFERENCES clientes(cliente_id)
+);
+
+-- Insertar datos iniciales en la tabla "factura"
+INSERT INTO factura (cliente_id, vendedor_id, fecha, total)
+VALUES
+    (1, 1, '2023-10-01', 799.99),
+    (2, 2, '2023-10-02', 499.50),
+    (3, 3, '2023-10-03', 199.99),
+    (4, 4, '2023-10-04', 799.96),
+    (5, 5, '2023-10-05', 319.96),
+    (6, 6, '2023-10-06', 99.98),
+    (7, 7, '2023-10-07', 249.99),
+    (8, 8, '2023-10-08', 109.98),
+    (9, 9, '2023-10-09', 559.95),
+    (10, 10, '2023-10-10', 599.97);
+
+-- Crear la tabla "factura_detalle" en MySQL
+CREATE TABLE factura_detalle (
+    detalle_id INT AUTO_INCREMENT PRIMARY KEY,
+    factura_id INT,
+    producto_id INT,
+    cantidad INT,
+    precio_producto DECIMAL(10, 2),
+    FOREIGN KEY (factura_id) REFERENCES factura(factura_id),
+    FOREIGN KEY (producto_id) REFERENCES producto(producto_id)
+);
+
+-- Insertar datos iniciales en la tabla "factura_detalle"
+-- Utiliza los mismos datos que se insertaron en SQL Server para esta tabla
+-- ...
+
+-- Verificar los datos en las tablas
+SELECT * FROM clientes;
+SELECT * FROM producto;
+SELECT * FROM factura;
+SELECT * FROM factura_detalle;
